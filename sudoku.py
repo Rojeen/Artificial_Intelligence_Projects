@@ -61,13 +61,8 @@ def initialize_domain_dict(board, dependency_dict):
                 domain_dict[r+c] = [1,2,3,4,5,6,7,8,9]
                 # loop through all dependent tiles for the current tile
                 for dependent_tile in dependency_dict[r+c]:
-                    # if the dependent tile has an assigned value, remove it from domain_dict[r+c]
-                    #print(board[dependent_tile])
-                    #time.sleep(1)
                     if (board[dependent_tile] != 0) and (board[dependent_tile] in domain_dict[r+c]):
-                        #print("remove from board")
                         domain_dict[r+c].remove(board[dependent_tile])
-                    #print("domain_dict[r+c]: " + str(domain_dict[r+c]))       
     return domain_dict
 
 def determine_MRV(curr_val_dict, domain_dict):
@@ -97,7 +92,6 @@ def forward_check_selection(value, MRV_tile, domain_dict, curr_val_dict, depende
                 return None
             else:
                 # remove the value from the domain of the tile
-                #print("remove " + str(value) + " from domain of " + str(tile))
                 domain_dict[tile].remove(value)
     domain_dict[MRV_tile] = value
     return domain_dict
@@ -111,64 +105,48 @@ def check_selection(value, MRV_tile, curr_val_dict, dependency_dict):
 
 #same as backtrack(assingment, csp) in lecture notes
 # textbook p. 215
-def backtracking_helper(curr_val_dict, domain_dict, dependency_dict): # returns a solution, or failure
-    #print("start of backtracking_helper")
-    #print("curr_val_dict: " + str(curr_val_dict))
-    #print("domain_dict: " + str(domain_dict))
-    
+def backtracking_helper(curr_val_dict, domain_dict, dependency_dict): # returns a solution, or failure   
     '''if assignment is complete, return assignment'''
     if 0 not in curr_val_dict.values(): 
         return curr_val_dict
     
     '''var = select_unassigned_var(csp) AKA MRV'''
     MRV_tile = determine_MRV(curr_val_dict, domain_dict) # find the tile that is the MRV (ex. will be B2)
-    #print("MRV_tile: " + MRV_tile)
     
     '''for each value in order_domain_values(var, assignment, csp)'''
     for value in domain_dict[MRV_tile]:  # try each value in the domain of the MRV tile
-        #print("check " + str(value) + " in domain of MRV tile")
         
         # store original domain_dict
         original_domain_dict = copy.deepcopy(domain_dict)
         
         '''if value is consistent with assignment'''
         if check_selection(value, MRV_tile, curr_val_dict, dependency_dict):
-            #print(str(value) + " is consistent with assingnment")
             
             '''add {var = value} to assignment'''  
             curr_val_dict[MRV_tile] = value # set the current value of the MRV_tile to the checked value in  curr_val_dict
-            #print("add " + str(value) + " to assignment")
            
             # apply forward checking on all tiles that will be affected by the value for the MRV to reduce variable demands
             '''inferences = inference(csp, var,value)'''
             forward_check_dict = forward_check_selection(value, MRV_tile, domain_dict, curr_val_dict, dependency_dict)
-            #print("apply forward checking")
             
             '''if inferences != failure'''
             if forward_check_dict != None:
-                #print("forwardchecking passed")
                 
-                #print("set domain_dict to copy of forward_check_dict")
                 '''add inferences to assignment'''
                 domain_dict = forward_check_dict.copy()
                 
-                #print("recursively call backtrack with curr_val_dict, domain_dict")
                 '''result = backtrack(assignment, csp)'''
                 result = backtracking_helper(curr_val_dict, domain_dict, dependency_dict) #result = backtrack(assignmnet, csp)
                 
                 '''if result != failure, then return result'''
                 if result != None: #if result != failure
-                    #print("result is not None so return result: " + str(result))
                     return result
-            #print("forwardchecking did not pass so revert assigments")
             '''remove {var = value} and inferences from assignment'''
-            #print("set value of MRV (" + str(MRV_tile) + ") back to 0")
             # set the value of the MRV back to 0
             curr_val_dict[MRV_tile] = 0 # set the MRV back to 0
             
             # Revert the domains (remove inferences from assignment) using deep copy
             domain_dict = copy.deepcopy(original_domain_dict)
-            #print("revert domain_dict back to original: " + str(domain_dict))
     
     # return Failure
     return None     
@@ -181,25 +159,18 @@ def backtracking(board):
     Pick your own order of values to try for each variable, and apply forward 
     checking to reduce variables domains.
     '''
-    #print(board)
     
     # change from curr_val_dict to board
     dependency_dict = create_dict_dependencies(board)
-    #print("dependency dict: " + str(dependency_dict))
     
     # create a dictionary with domains for the tiles that are constrained based on preset values
     domain_dict = initialize_domain_dict(board, dependency_dict)
-    #print("domain dict" + str(domain_dict))
     
-    # change from curr_val_dict to board
-    # backtracking_helper same as backtrack(assingment, csp) in lecture notes                
     found_board = backtracking_helper(board, domain_dict, dependency_dict)
     
     if found_board == None:
-        #print("not solvable")
         solved_board = board # could not find solution
     else:
-        #print("solved")
         solved_board = found_board.copy()
     
     return solved_board
