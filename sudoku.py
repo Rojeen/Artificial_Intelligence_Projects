@@ -7,9 +7,7 @@ int values.
 e.g. my_board['A1'] = 8
 """
 import sys
-#import time
 import copy
-#import statistics
 
 ROW = "ABCDEFGHI"
 COL = "123456789"
@@ -103,8 +101,6 @@ def check_selection(value, MRV_tile, curr_val_dict, dependency_dict):
             return False
     return True
 
-#same as backtrack(assingment, csp) in lecture notes
-# textbook p. 215
 def backtracking_helper(curr_val_dict, domain_dict, dependency_dict): # returns a solution, or failure   
     '''if assignment is complete, return assignment'''
     if 0 not in curr_val_dict.values(): 
@@ -151,7 +147,6 @@ def backtracking_helper(curr_val_dict, domain_dict, dependency_dict): # returns 
     # return Failure
     return None     
 
-# From skeleton (same as backtracking_search in lecture notes)
 def backtracking(board):
     """Takes a board and returns solved board."""
     '''
