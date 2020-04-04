@@ -1,4 +1,5 @@
-# sudoku
+# AI Projects
+soduku.py:
 Sudoku solver that implements backtracking search with forward checking using the minimum remaining value heuristic
 
 Input a string that represents the board from left to right starting from the top row. Represent an empty space with a 0.
