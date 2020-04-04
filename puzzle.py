@@ -154,10 +154,7 @@ class PuzzleState(object):
         return self.children
 
 # Function that Writes to output.txt
-
-### Students need to change the method to have the corresponding parameters
 def writeOutput(initial_state, goal_state, nodes_expanded, search_depth, max_search_depth, running_time):
-    ### Student Code Goes here
     f = open("output.txt", "w")
     
     path = []
@@ -327,7 +324,6 @@ def A_star_search(initial_state):
         (heuristic, state_action, state_time, state) = heapq.heappop(frontier) # output tuple with heuristic, list of state, and actual state object
         frontier_with_configs.remove(tuple(state.config))
         explored.add(tuple(state.config)) # add the state list to the explored set
-        #print(tuple(state.config))
         if test_goal(state):
             running_time = time.time() - starting_time
             writeOutput(initial_state, state, nodes_expanded, state.cost, max_search_depth, running_time)
@@ -352,26 +348,21 @@ def A_star_search(initial_state):
     return
 def calculate_total_cost(state):
     """calculate the total estimated cost of a state"""
-    ### STUDENT CODE GOES HERE ###
     # sum up manhattan distances of each tile
     total_cost = 0
     for i in range((state.n)**2):
         total_cost+= calculate_manhattan_dist(i, state.config[i], state.n)
-    #print("total costs: " + str(total_cost) + "\n")
     return total_cost
 
 def calculate_manhattan_dist(idx, value, n):
     """calculate the manhattan distance of a tile"""
-    ### STUDENT CODE GOES HERE ###
     return (math.fabs(idx-value)%n + int(math.fabs(idx-value)/n))
 
 def test_goal(puzzle_state):
     """test the state is the goal state or not"""
-    ### STUDENT CODE GOES HERE ###
     goal_state_list = []
     for i in range((puzzle_state.n)**2):
         goal_state_list.append(i)
-    #print(goal_state_list)
     return (puzzle_state.config == goal_state_list)
 
 # Main Function that reads in Input and Runs corresponding Algorithm
