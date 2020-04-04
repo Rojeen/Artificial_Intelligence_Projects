@@ -9,6 +9,6 @@ For example, run "python3 sudoku.py 00302060090030500100180640000810290070000000
 
 puzzle.py:
 
-Agent that solves the 8-puzzle game using depth-first search (DFS), breadth-first search (DFS), and A* search. Run the program specifying which search you want to use and a list of integers without spaces to reprsent the board. Represent the empty space with a 0. Use "dfs" to use depth-first search, "bfs" to use breadth-first search, and "ast" to use A* search.
+Agent that solves the 8-puzzle game using depth-first search (DFS), breadth-first search (DFS), and A* search. Run the program specifying which search you want to use and a list of integers with commas and without spaces to represent the board. Represent the empty space with a 0. Use "dfs" to use depth-first search, "bfs" to use breadth-first search, and "ast" to use A* search.
 
 For example, run "python3 puzzle.py bfs 0,8,7,6,5,4,3,2,1"
