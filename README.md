@@ -9,7 +9,7 @@ For example, run "python3 sudoku.py 00302060090030500100180640000810290070000000
 
 ## puzzle.py:
 
-Agent that solves the 8-puzzle game using depth-first search (DFS), breadth-first search (DFS), and A* search. Run the program specifying which search you want to use and a list of integers with commas and without spaces to represent the board. Represent the empty space with a 0. Use "dfs" to use depth-first search, "bfs" to use breadth-first search, and "ast" to use A* search.
+Agent that solves the 8-puzzle game using depth-first search (DFS), breadth-first search (DFS), and A* search. Run the program by specifying which search you want to use and a list of integers (with commas and without spaces) to represent the board. Represent the empty space with a 0. Use "dfs" to do depth-first search, "bfs" to do breadth-first search, and "ast" to do A* search.
 
 For example, run "python3 puzzle.py bfs 0,8,7,6,5,4,3,2,1"
 ______________________________________________________________________________________________________________________________
@@ -24,7 +24,7 @@ Execute the game using "python3 GameManager.py"
 
 ## Hand Gesture Classifier for Sign Language:
 
-Model that uses Convolutional Neural Networks (CNNs) and Keras to classifier hand gestures for sign language. Uses train.csv for training and test.csv for testing (stored as zipped files here).
+Model that uses Convolutional Neural Networks (CNNs) and Keras to classify hand gestures for sign language. Uses train.csv for training and test.csv for testing (stored as zipped files here).
 
 Execute by running "python sign_language.py" or using sign_language.ipynb in Google Colab.
 
@@ -36,7 +36,7 @@ Execute by running "python clustering.py"
 
 ## Linear Regression:
 
-Linear regression model that uses gradient descent to predict height (m) using age (yr) and weight (kg), using data derived from CDC growth charts data.
+Linear regression model that uses gradient descent to predict height (m) using age (yr) and weight (kg), with data derived from CDC growth charts data.
 
 Execulte by running "python lr.py data2.csv results2.csv"
 
